@@ -53,14 +53,34 @@ def entrenom():
         #robot_son()
         up()
         #time.sleep(2.5)
+    global entre
     entre = Entry(fenetre, font=("Arial", 13))
     entre.place(y= 450, x=470)
-    btn_ok = Button(fenetre, text="OK", font=("Arial", 10), command=le_nom(entre))
+    btn_ok = Button(fenetre, text="OK", font=("Arial", 10), command=le_nom)
     btn_ok.place(y= 450, x=670)
     
-def le_nom(entre):
+#verification du nom de lutilisateur
+def le_nom():
+    global nom
     nom = entre.get()
-    print(nom)
+    taille_nom = len(nom)
+    liste_interdite = ["?","À","Á","Â","Ã","Ä","Å","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ñ","Ò","Ó","Ô","Õ","Ö","Ø","Œ","Š","þ","Ù","Ú","Û","Ü","Ý","Ÿ","à","á","â","ã","ä","å","æ","ç","è","é","ê","ë","ì","í","î","ï","ð","ñ","ò","ó","ô","õ","ö","ø","œ","š","Þ","ù","ú","û","ü","ý","ÿ","!"]
+    taille_liste = len(liste_interdite)
+    for i in range(taille_nom):
+        for y in range(taille_liste):
+            if nom[i] == liste_interdite[y]:
+                erreur = Label(fenetre, text=("Caractere speciaux interdit!"), fg="red")
+                son_robot = pygame.mixer.Sound("son/Robot5.ogg")
+                son_robot.play()
+                erreur.place(y= 480, x= 500)
+                entre.delete(0, "end")
+    choix()
+
+#Fonction de la 3eme etape
+def choix():
+    delete_page()
+    propo_de_jeux = Label(fenetre, text="Tres bien " + nom +" a quoi vous voulez jouer?")
+    propo_de_jeux.place(y=450,x=500)
     
     
 pygame.init()
